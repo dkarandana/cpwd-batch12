@@ -3,27 +3,37 @@
 <head>
 	<title>jQuery Basics</title>
 	<meta charset="UTF-8">
-	<script type="text/javascript" src="jquery-3.2.1.js"></script>
-	<script type="text/javascript" src="js/custom.js"></script>
 	<style type="text/css">
-		
-		#to-do li {
-		    border: 1px solid red;
-		    display: block;
-		    max-width: 300px;
-		    padding: 6px;
-		    margin:4px;
+		.task-list-panel{
+			font-size:1.2em;
 		}
-		#to-do li input {
+		.task-list-panel li {
+		    padding: 8px;
+		    border: 1px solid;
+		    margin-top: 4px;
+		    display: block;
+		    max-width: 60%;
+		}
+		.task-list-panel input{
+			float: right;
+			border:1px solid blue;
+		}
+		.task-list-panel button{
 			float: right;
 		}
+
 	</style>
+	<link rel="stylesheet" type="text/css" href="libs/jquery-ui.min.css">
 </head>
 <body>
 	<h1>jQuery Basics</h1>
 
-	<a class="add-new" href="#">Add new task (+)</a>
-	<ul id="to-do">
-	</ul>
+	<div class="task-list-panel">
+		<a class="add-task" href="#">Add Task (+)</a>
+	</div>
+	
+	<script type="text/javascript" src="libs/jquery-3.2.1.js"></script>
+	<script type="text/javascript" src="libs/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/custom.js"></script>
 </body>
 </html>

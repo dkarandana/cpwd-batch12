@@ -1,112 +1,88 @@
-/*
-	jQuery no conflict
-	https://api.jquery.com/jquery.noconflict/
 
-	var jQ = $.noConflict();
+var taskList = [
+		"How to set text-field value with Javascript?",
+		"bug(ripple): Clicking on element with ripple, stays highlighted.",
+		"Clarification of codepen color tool",
+		"Suggestion: wrap compound sourcemaps on libsass",
+		"Snackbar will not be hidden when the visibilitychange is fired after call ",
+		"List item graphic gets squished when text overflows",
+		"If there is a long content in MDC select box options",
+		"widespread issues with font scaling"
+	];
 
-	console.log("jQuery", jQuery );
-	console.log("$ new Alias", jQ );
-*/
+	function addTask( $currentList, taskName, prepend ){
 
-// Event Handler
+		var $taskItem, $removeBtn, $dueDate;
 
-/*
+		$taskItem = $('<li>')
+						.text( taskName );
+
+		$removeBtn = $('<button>')
+						.text('remove')
+						.addClass('remove');
+
+		$taskItem.append( $removeBtn );
+
+		$dueDate = $('<input>');
+
+		$taskItem.append( $dueDate  );
+
+		if( $.datepicker ){
+
+			$dueDate
+				.datepicker({
+					dateFormat: "yy/mm/dd"
+				})
+				.datepicker("setDate", new Date() );
+		}
+
+		if( prepend ){
+			$currentList.prepend( $taskItem );
+		}else{
+			$currentList.append( $taskItem );
+		}
+
+	}
+
 var handler = function(){
-	var $body = $('body');
+
+	// DOM Ready
+	var $taskPanel = $('.task-list-panel'),
+		$newList,$currentTask;
+
+		$newList= $('<ul>');
 
 
-	$body.css('color', 'red');
+	taskList.forEach(function( task, index ){
 
-	console.log( $body );
+		addTask( $newList, task );
+	});
+
+	$taskPanel.append( $newList );
+
+	/* Remove items from the list */
+
+	$taskPanel.on('click','.remove', function(){
+
+		var $this = $(this);
+
+		$this.parent().remove();
+
+	});
+
+	$taskPanel.on('click','.add-task', function(){
+
+		var newTask = prompt('Add new task', 'Add your task name here');
+
+		addTask( $newList, newTask, true );
+
+		return false;
+
+	});
 
 };
 
 $( document ).ready( handler );
-*/
-
-$(document).ready(function(){});
-
-$(function(){
-	// DOM is ready to Manipulate
-
-	var $body = $('body');
-
-	/*$body.css({
-		color:'red',
-		backgroundColor:'skyblue'
-	});*/
-
-
-// to do list
-
-	var toDoList = function(){
-
-		var $toDo = $('#to-do'),
-			$addNew = $('.add-new'),
-			taskList;
-
-		taskList = ['Task 1', 'Task 2','Task 3'];
-		
-		/* taskList.forEach(function( task ){
-			console.log( task );
-		});*/
-
-		// http://api.jquery.com/each/
-
-		$.each(taskList, function( index, task ){
-
-			var $li = $('<li>');
-
-				index++;
-				$li.text('task: ' + index + " - " + task );
-
-				$('<input type="button" value="Remove">').appendTo( $li );
-
-			$li.appendTo( $toDo );
-		});
-
-		// Add new feature
-		// http://api.jquery.com/bind/
-
-		$addNew.bind('click', function(){
-			var taskName,$newTask,taskCount;
-
-			taskCount = $toDo.find('li').length;
-			taskCount++;
-
-			taskName = prompt('Add new task', 'Task name');
-
-			$newTask = $('<li>').text( 'task: ' + taskCount + " - " + taskName );
-
-			$('<input type="button" value="Remove">').appendTo( $newTask );
-
-			$newTask.appendTo( $toDo );
-
-
-			console.log( taskName );
-
-			return false;
-		});
-
-		// Remove item
-
-		$toDo.on('click','input',function(){
-			var $that = $(this); // button
-
-			$that.parent().remove();
-		});
-
-
-	}();
-
-
-});
-
-
-
-
-
-
 
 
 
